@@ -9,7 +9,6 @@ import (
 
 	"backend/router"
 
-	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
 
@@ -35,12 +34,12 @@ func CORSMiddleware(next http.Handler) http.Handler {
 }
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
+	dbURL := os.Getenv("DB_URL")
+	if dbURL == "" {
+		log.Fatal("Missing DB_URL environment variable")
 	}
 
-	db, err := sql.Open("postgres", os.Getenv("DB_URL"))
+	db, err := sql.Open("postgres", dbURL)
 	if err != nil {
 		log.Fatal(err)
 	}
