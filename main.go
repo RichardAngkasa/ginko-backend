@@ -48,6 +48,19 @@ func main() {
 	r := router.NewRouter(db)
 	handler := CORSMiddleware(r)
 
+	rows, err := db.Query("SELECT username FROM users")
+	if err != nil {
+		log.Fatal("Query failed:", err)
+	}
+	defer rows.Close()
+
+	fmt.Println("Users in DB:")
+	for rows.Next() {
+		var name string
+		rows.Scan(&name)
+		fmt.Println("- ", name)
+	}
+
 	fmt.Println("Server started at :8080")
 	log.Fatal(http.ListenAndServe(":8080", handler))
 }
