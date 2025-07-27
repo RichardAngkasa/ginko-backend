@@ -62,7 +62,7 @@ func Login(db *sql.DB) http.HandlerFunc {
 			Path:     "/",
 			HttpOnly: true,
 			SameSite: http.SameSiteLaxMode,
-			Secure:   false,
+			Secure:   true,
 			Expires:  time.Now().Add(24 * time.Hour),
 		})
 

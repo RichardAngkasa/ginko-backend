@@ -12,7 +12,7 @@ func Logout() http.HandlerFunc {
 			Path:     "/",
 			HttpOnly: true,
 			SameSite: http.SameSiteLaxMode,
-			Secure:   false,
+			Secure:   true,
 			MaxAge:   -1,
 		})
 
